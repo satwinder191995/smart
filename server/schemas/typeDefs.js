@@ -13,7 +13,11 @@ const typeDefs = gql `
         users: [User]
         user (email: String): User
         me: User
+        checkout(products: Int!): Checkout
     }
+    type Checkout {
+        session: ID
+      }
 
     type Mutation {
         login(email: String!, password: String!): Auth

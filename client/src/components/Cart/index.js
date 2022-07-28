@@ -5,7 +5,23 @@ import { QUERY_ORDERS} from '../../utils/queries';
 import { ADD_ORDER} from '../../utils/mutations';
 import { useNavigate } from "react-router-dom";
 import Auth from "../../utils/auth";
+import { QUERY_CHECKOUT } from '../../utils/queries';
+import { loadStripe } from '@stripe/stripe-js';
+import { useLazyQuery } from '@apollo/client';
+const stripePromise = loadStripe('pk_test_TYooMQauvdEDq54NiTphI7jx');
 function Cart() {
+  const[total,setTotal]=useState(0);
+  const [getCheckout, { data:data2 }] = useLazyQuery(QUERY_CHECKOUT);
+  console.log(data2)
+  console.log("check")
+  useEffect(() => {
+    if (data2) {
+      stripePromise.then((res) => {
+        res.redirectToCheckout({ sessionId: data2.checkout.session });
+      });
+    }
+  }, [data2]);
+
   var profileEmail = Auth.getProfile();
     var tempEmail =profileEmail.data.email
   const [toggle, setToggle] = useState(false)
@@ -18,7 +34,7 @@ function Cart() {
   const[searchparams] =useSearchParams();
   console.log(searchparams.get("id"));
   let navigate = useNavigate();
-  const[total,setTotal]=useState(0);
+
   const [addOrder, { error }] = useMutation(ADD_ORDER);
   let cart = JSON.parse(localStorage.getItem("cart"));
   console.log(cart);
@@ -32,17 +48,24 @@ function Cart() {
   var discount =0;
   if (sumTotal> 50){
    discount = 10
+   var totalS = sumTotal-discount;
   }else{
     discount = 0;
+    var totalS = sumTotal
   }
   const handleClick = async event => {
     function myFunction(item,index){
       let itemName = JSON.stringify(item.name);
       const { data } = addOrder({variables: {name:itemName,price:item.price}});
     }
+    console.log(data);
     cart.forEach(myFunction);
     localStorage.setItem("cart","[]")
+    getCheckout({
+      variables: { products: totalS }
+    });
     };
+
     const handleDelete = (name) => {
       let cart = JSON.parse(localStorage.getItem("cart"));
       const result = cart.filter(item=>item.name !== name);
@@ -50,7 +73,8 @@ function Cart() {
       localStorage.setItem("cart", JSON.stringify(result));
       navigate("/cart");
       };
-    
+
+      
    
     return(
       <>
@@ -90,7 +114,7 @@ function Cart() {
           <tr>
           <th scope="col"></th>
           <th scope="col">Total</th>
-          <th scope="col"> $ {sumTotal - discount}</th>
+          <th scope="col"> $ {totalS}</th>
           </tr>
        </tbody>
       </table>
