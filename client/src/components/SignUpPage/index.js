@@ -16,8 +16,10 @@ function SignUp() {
         userName: formState.username,
       },
     });
-    const token = mutationResponse.data.addUser.token;
-    Auth.login(token);
+    console.log("here")
+    console.log(mutationResponse.data)
+    const token = mutationResponse.data.newUser.token;
+    Auth.signUp(token);
   };
 
   const handleChange = (event) => {
