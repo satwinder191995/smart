@@ -53,6 +53,7 @@ function Cart() {
     
    
     return(
+      <>
 <section className='m-5'>
 <h1>We've Got You!</h1>
       <h2>Here Are Your Items</h2>
@@ -94,19 +95,25 @@ function Cart() {
        </tbody>
       </table>
       <Link to="/" className='text-decoration-none text-black'>
-      <button type="button" class="btn btn-danger mx-3" id="continueBrowsing">
+      <button type="button" class="btn btn-danger my-2 my-md-0 mx-0 mx-md-3 " 
+      style={{width:"280px"}}
+      id="continueBrowsing">
         Continue browsing
       </button>
       </Link>
       <button 
       onClick={() => setToggle(!toggle)}
-          type="button" class="btn btn-danger mx-3" id="purchasesHistory">
+          type="button" class="btn btn-danger my-2 my-md-0 mx-0 mx-md-3" 
+          style={{width:"280px"}}
+          id="purchasesHistory">
         Purchases history
       </button>
       <button onClick={() => {
             handleClick();
           }}
-          type="button" class="btn btn-danger mx-3" id="confirmPurchase">
+          type="button" class="btn btn-danger my-2 my-md-0 mx-0 mx-md-3" 
+          style={{width:"280px"}}
+          id="confirmPurchase">
         Confirm purchase!
       </button>
 {toggle && (
@@ -175,8 +182,10 @@ function Cart() {
       </div>
       </>    
 )}
-      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcTst0bPCetb2YqQwuNRqVpwRTkoLozhhlyKCA&usqp=CAU" class="d-block w-40 p-3" alt="..."></img>
+      
 </section>
+<img src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcTst0bPCetb2YqQwuNRqVpwRTkoLozhhlyKCA&usqp=CAU" class="d-block w-40  p-3 mx-md-3" alt="..."></img>
+</>
     )
 }
 
