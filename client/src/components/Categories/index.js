@@ -21,10 +21,10 @@ function Categories(props) {
     return(
         <>
     <section className=" m-2">
-        <h2 className="mx-4">{props.category}</h2>
-        <div className='d-flex overflow-auto p-3 '>
+        <h2 className="mx-2 mx-md-4">{props.category}</h2>
+        <div className='d-flex overflow-auto py-2  p-md-3 '>
         {props.homedata.map(category =>(
-            <div className='mx-4 bg-light '>
+            <div className='mx-2 mx-md-4 bg-light '>
         <img  src={require(`../../assets/categories/images/${category.image}`)}
         style={{height:"220px",width:"220px"}}
       ></img>

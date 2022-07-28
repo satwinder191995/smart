@@ -11,14 +11,14 @@ function Nav() {
     return(
         <header className="container-fluid">
           <div className="row">
-          <div className="col-6 my-4 col-md-3 col-lg-3 m-0 p-0 order-md-1">
+          <div className="col-5 my-4 col-md-3 col-lg-3 m-0 p-0 order-md-1">
           <div>
           <Link to="/" className='text-decoration-none text-black'>
               <img src={logo} style={{height:"60px",width:"160px",}}></img>
               </Link>
           </div>
           </div>
-          <nav className="col-6 my-4 col-md-3 col-lg-3 my-2 order-md-3">
+          <nav className="col-7 my-4 col-md-3 col-lg-3  order-md-3">
          <ul className="d-flex list-unstyled justify-content-end">
             <li className="p-1 mx-2 text-decoration-none" style={{fontSize:"25px"}}>
             {Auth.loggedIn() ? (

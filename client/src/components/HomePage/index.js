@@ -18,9 +18,9 @@ function Homepage() {
         <>
     <section>
         <ul className="d-flex list-unstyled justify-content-center p-4 bg-light">
-        <li className="mx-4">Products up to 90% off</li>
-        <li className="mx-4">Free shipping on orders $50+</li>
-        <li className="mx-4">1 month Gurantee</li>
+        <li className="mx-1 mx-md-4">Products up to 90% off</li>
+        <li className="mx-md-4">Free shipping on orders $50+</li>
+        <li className="mx-1 mx-md-4">1 month Gurantee</li>
         </ul>
     </section>
       <section className='text-center bg-warning p-2'>
