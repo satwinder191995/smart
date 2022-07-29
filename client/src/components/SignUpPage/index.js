@@ -5,7 +5,8 @@ import Auth from '../../utils/auth';
 import { ADD_USER } from '../../utils/mutations';
 function SignUp() {
   const [formState, setFormState] = useState({ username:'',email: '', password: '' });
-  const [addUser] = useMutation(ADD_USER);
+  const [addUser,{error}] = useMutation(ADD_USER);
+  console.log(error)
   console.log(formState);
   const handleFormSubmit = async (event) => {
     event.preventDefault();
@@ -17,6 +18,7 @@ function SignUp() {
       },
     });
     console.log("here")
+    
     console.log(mutationResponse.data)
     const token = mutationResponse.data.newUser.token;
     Auth.signUp(token);
@@ -68,7 +70,11 @@ function SignUp() {
                 onChange={handleChange}
               />
             </div>
-           
+            {error ? (
+          <div>
+            <p className="error-text">The provided credentials are already taken</p>
+          </div>
+        ) : null}
             <button booktype='submit' class='btn btn-danger my-4'>Sign Up</button>
           </form>
           <br />
