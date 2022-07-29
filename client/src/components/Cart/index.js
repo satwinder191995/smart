@@ -8,6 +8,7 @@ import Auth from "../../utils/auth";
 import { QUERY_CHECKOUT } from '../../utils/queries';
 import { loadStripe } from '@stripe/stripe-js';
 import { useLazyQuery } from '@apollo/client';
+import Purchase from '../Purchase';
 const stripePromise = loadStripe('pk_test_TYooMQauvdEDq54NiTphI7jx');
 function Cart() {
   const[total,setTotal]=useState(0);
@@ -22,17 +23,17 @@ function Cart() {
     }
   }, [data2]);
 
-  var profileEmail = Auth.getProfile();
-    var tempEmail =profileEmail.data.email
+  // var profileEmail = Auth.getProfile();
+    // var tempEmail =profileEmail.data.email
   const [toggle, setToggle] = useState(false)
-  const { loading, data } = useQuery(QUERY_ORDERS,{
-    variables:{email:tempEmail}
-  });
-  const orderData = data?.user || [];
-  console.log("orders");
-  console.log(orderData.orders);
-  const[searchparams] =useSearchParams();
-  console.log(searchparams.get("id"));
+  // const { loading, data } = useQuery(QUERY_ORDERS,{
+  //   variables:{email:tempEmail}
+  // });
+  // const orderData = data?.user || [];
+  // console.log("orders");
+  // console.log(orderData.orders);
+  // const[searchparams] =useSearchParams();
+  // console.log(searchparams.get("id"));
   let navigate = useNavigate();
 
   const [addOrder, { error }] = useMutation(ADD_ORDER);
@@ -58,7 +59,7 @@ function Cart() {
       let itemName = JSON.stringify(item.name);
       const { data } = addOrder({variables: {name:itemName,price:item.price}});
     }
-    console.log(data);
+    // console.log(data);
     cart.forEach(myFunction);
     localStorage.setItem("cart","[]")
     getCheckout({
@@ -73,9 +74,6 @@ function Cart() {
       localStorage.setItem("cart", JSON.stringify(result));
       navigate("/cart");
       };
-
-      
-   
     return(
       <>
 <section className='m-5'>
@@ -140,72 +138,7 @@ function Cart() {
           id="confirmPurchase">
         Confirm purchase!
       </button>
-{toggle && (
-  <>
-      <div id="purchasesDiv">
-        <h1 class="mt-5">Purchases history</h1>
-        <table class="table table-hover p-5">
-          <thead>
-            <tr>
-            <th scope="col"></th>
-            <th scope="col">Title</th>
-              <th scope="col">Price</th>
-            </tr>
-          </thead>
-          {orderData.orders.map((items,key) =>(
-             <tbody id="cartTableBody">
-              <tr>
-          <th scope="col">{key+1}</th>
-          <th scope="col">{items.name}</th>
-          <th scope="col">{items.price}</th>
-          </tr>
-             </tbody>
-          ))}
-        </table>
-      </div>
-      <div
-        class="modal fade"
-        id="purchaeConfirmationModal"
-        data-backdrop="static"
-        data-keyboard="false"
-        tabindex="-1"
-        role="dialog"
-        aria-labelledby="purchaeConfirmationModal"
-        aria-hidden="true"
-      >
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="purchaeConfirmationModal">
-                Purchase confirmation
-              </h5>
-              <button
-                type="button"
-                class="close"
-                data-dismiss="modal"
-                aria-label="Close"
-              >
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-            <div class="modal-body">
-              <p>Payment received.</p>
-              <p>Enjoy your purchase!!</p>
-            </div>
-            <div class="modal-footer">
-              <button
-                type="button"
-                class="btn btn-secondary"
-                data-dismiss="modal"
-              >
-                Close
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
-      </>    
-)}
+     { toggle && (<Purchase></Purchase>)}
       
 </section>
 <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcTst0bPCetb2YqQwuNRqVpwRTkoLozhhlyKCA&usqp=CAU" class="d-block w-40  p-3 mx-md-3" alt="..."></img>
