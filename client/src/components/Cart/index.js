@@ -36,7 +36,7 @@ function Cart() {
   let navigate = useNavigate();
 
   const [addOrder, { error }] = useMutation(ADD_ORDER);
-  let cart = JSON.parse(localStorage.getItem("cart"));
+  let cart = JSON.parse(localStorage.getItem("cart")) || [];
   console.log(cart);
   let sum = 0;
   var sumTotal;
