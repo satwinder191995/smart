@@ -23,7 +23,7 @@
   
    ### SMART SHOP
 
-  ![image](./resources/images/Smart%20Online%20Shop%20Chart%20Logo.png)
+  ![image](./client/src/assets/Smart%20Online%20Shop%20Chart%20Logo.png)
 
 ## Description 📃
   
